@@ -12,8 +12,8 @@ export default function Root() {
     <div className="app">
       <form className="location-name"></form>
       <form className="lat-and-lon">
-        <div className="mb-3">
-          <label htmlFor="exampleInputEmail1">latitude</label>
+        <div>
+          <label>latitude</label>
           <input
             type="text"
             placeholder="0 ~ 180"
@@ -21,10 +21,8 @@ export default function Root() {
             onChange={(e: any) => setLatitude(e.target.value)}
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            longitude
-          </label>
+        <div>
+          <label>longitude</label>
           <input
             type="text"
             placeholder="0 ~ 180"
@@ -32,9 +30,7 @@ export default function Root() {
             onChange={(e: any) => setLongitude(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
+        <button type="submit">Search</button>
       </form>
     </div>
   );

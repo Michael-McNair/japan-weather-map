@@ -15,10 +15,15 @@ body {
 label {
   color: #eee;
   display: block;
-  margin: 10px 0;
 }
 
 input {
   padding: 10px;
   border: none;
+  border-radius: 5px;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
 }

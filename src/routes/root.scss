@@ -6,5 +6,12 @@
   .location-name {
   }
   .lat-and-lon {
+    label {
+      margin: 10px 0 5px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 5px 10px;
+    }
   }
 }
