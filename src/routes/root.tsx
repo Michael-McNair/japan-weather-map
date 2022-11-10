@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './root.css';
+import SlideButton from '../components/SlideButton/SlideButton';
 
 export default function Root() {
   const ApiKey: string = '4b6b8969dc618e1bf2e2319466654a7d';
@@ -7,6 +8,13 @@ export default function Root() {
   const [longitude, setLongitude] = useState('');
 
   // `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}$appid=${ApiKey}`
+  function fetchForWeather() {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${ApiKey}`
+    )
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }
 
   return (
     <div className="app">
@@ -30,7 +38,7 @@ export default function Root() {
             onChange={(e: any) => setLongitude(e.target.value)}
           />
         </div>
-        <button type="submit">Search</button>
+        <SlideButton onClick={() => console.log('s')} content="search" />
       </form>
     </div>
   );
