@@ -1,29 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import './root.css';
-import SlideButton from '../components/SlideButton/SlideButton';
+import { useState } from 'react';
+import SlideButton from '../components/SlideButton';
+import styled from 'styled-components';
+import APIKey from '../APIKey';
+
+const StyledApp = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  label {
+    margin: 10px 0 5px;
+  }
+  button {
+    margin-top: 10px;
+    padding: 5px 10px;
+  }
+`;
 
 export default function Root() {
-  const ApiKey: string = '4b6b8969dc618e1bf2e2319466654a7d';
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
 
-  // `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}$appid=${ApiKey}`
-  function fetchForWeather() {
+  function fetchCoords() {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${ApiKey}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${APIKey}`
     )
       .then((res) => res.json())
       .then((data) => console.log(data));
   }
 
   return (
-    <div className="app">
+    <StyledApp>
       <form className="location-name"></form>
       <form className="lat-and-lon">
         <div>
           <label>latitude</label>
           <input
-            type="text"
+            type="number"
+            max="180"
             placeholder="0 ~ 180"
             value={latitude}
             onChange={(e: any) => setLatitude(e.target.value)}
@@ -32,14 +46,25 @@ export default function Root() {
         <div>
           <label>longitude</label>
           <input
-            type="text"
+            type="number"
+            max="180"
             placeholder="0 ~ 180"
             value={longitude}
             onChange={(e: any) => setLongitude(e.target.value)}
           />
         </div>
-        <SlideButton onClick={() => console.log('s')} content="search" />
+        <SlideButton
+          onClick={(e: any) => {
+            e.preventDefault();
+            if (latitude !== '' && longitude !== '') {
+              fetchCoords();
+              setLatitude('');
+              setLongitude('');
+            }
+          }}
+          content="Search"
+        />
       </form>
-    </div>
+    </StyledApp>
   );
 }
