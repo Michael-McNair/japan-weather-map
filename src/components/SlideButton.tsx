@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState, useRef, useLayoutEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const StyledButton = styled.button<{ width: number }>`
   border: #eee 2px solid;
@@ -25,9 +26,20 @@ const StyledButton = styled.button<{ width: number }>`
     right: -1px;
     transition: 0.5s;
   }
+  .dummy {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
 `;
 
-export default function SlideButton(props: { onClick: any; content: string }) {
+export default function SlideButton(props: {
+  onClick: any;
+  content: string;
+  to: string;
+}) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [buttonWidth, setButtonWidth] = useState<any | null>(null);
 
@@ -41,6 +53,7 @@ export default function SlideButton(props: { onClick: any; content: string }) {
     <StyledButton onClick={props.onClick} ref={buttonRef} width={buttonWidth}>
       {props.content}
       <div className="slide"></div>
+      <Link to={props.to} className="dummy"></Link>
     </StyledButton>
   );
 }

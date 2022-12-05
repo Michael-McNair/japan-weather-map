@@ -12,6 +12,11 @@ body {
   background-color: #181818;
 }
 
+h2 {
+  color: #eee;
+  font-size: 2rem;
+}
+
 label {
   color: #eee;
   display: block;

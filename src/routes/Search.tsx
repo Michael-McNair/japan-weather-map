@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import SlideButton from '../components/SlideButton';
 import styled from 'styled-components';
+// ------------------------------
 import APIKey from '../APIKey';
+// make src ../APIKey.tsx file and add the code shown below
+// const APIKey = [APIKey];
+// export default APIKey;
+// ------------------------------
 
-const StyledApp = styled.div`
+const StyledRoot = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,9 +20,22 @@ const StyledApp = styled.div`
     margin-top: 10px;
     padding: 5px 10px;
   }
+  h2 {
+    margin: 20px;
+  }
 `;
 
-export default function Root() {
+export default function Search() {
+  const [city, setCity] = useState('');
+
+  function fetchCity() {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}`
+    )
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }
+
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
 
@@ -30,8 +48,29 @@ export default function Root() {
   }
 
   return (
-    <StyledApp>
-      <form className="location-name"></form>
+    <StyledRoot>
+      <form className="location-name">
+        <div>
+          <label>city</label>
+          <input
+            type="text"
+            placeholder="City Name"
+            value={city}
+            onChange={(e: any) => setCity(e.target.value)}
+          />
+        </div>
+        <SlideButton
+          onClick={(e: any) => {
+            e.preventDefault();
+            if (city !== '') {
+              fetchCity();
+            }
+          }}
+          content="Search"
+          to="/result"
+        />
+      </form>
+      <h2>or</h2>
       <form className="lat-and-lon">
         <div>
           <label>latitude</label>
@@ -63,8 +102,9 @@ export default function Root() {
             }
           }}
           content="Search"
+          to="/result"
         />
       </form>
-    </StyledApp>
+    </StyledRoot>
   );
 }
